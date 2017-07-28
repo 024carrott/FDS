@@ -17,7 +17,8 @@
 
     fds-message
       h3(slot="heading") 통화 변경
-      p 오늘 특가 이벤트! {{ 300 | currency('$') }}에 모십니다.
+      p 어제 특가 이벤트! {{ 3000 | currency }}에 모십니다.
+      p 오늘 특가 이벤트! {{ 500000 | currency('$', 2) }}에 모십니다.
 
     fds-modal(
       ref="my_modal"
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import FdsMessage from './components/FDS/Message';
   import FdsModal from './components/FDS/Modal';
 
@@ -43,13 +45,38 @@
       FdsMessage, FdsModal
     },
     filters: {
-      currency: (value, sign="원") => {
-        if ( sign !== '원' ) {
-          return sign + value;
+      currency: ( value, symbol='', decimal=0 ) => {
+        // 의존하는 모듈 vue2-filter 검증
+        let vue2Filter = Vue.filter('currency');
+        if ( vue2Filter ) {
+          value = vue2Filter(value, symbol, decimal);
         } else {
-          return value + sign;
+          throw `\n
+  vue2-filters 모듈을 설치한 후, 사용해주세요.
+  $ npm install vue2-filters
+
+  import Vue2Filters from 'vue2-filters';
+  Vue.use(Vue2Filters);\n
+`
         }
-      }
+        if ( symbol.trim() !== "" ) {
+          return value;
+        } else {
+          return value + '원';
+        }
+      },
+      // currency: (value, sign="원") => {
+      //   let number = null;
+      //   if ( Vue.filter('number') ) {
+      //     number = Vue.filter('number');
+      //   }
+      //   value = number(value);
+      //   if ( sign !== '원' ) {
+      //     return sign + value;
+      //   } else {
+      //     return value + sign;
+      //   }
+      // }
     },
     methods: {
       openModal(){
