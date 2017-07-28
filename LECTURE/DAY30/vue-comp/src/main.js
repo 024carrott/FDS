@@ -1,9 +1,20 @@
 import Vue from 'vue';
 import Vue2Filters from 'vue2-filters';
 import App from './App';
+import router from './router';
+import store from './store';
+// import VueResource from 'vue-resource';
+// import axios from 'axios';
 
 // Vue v2 Filters 플러그인 사용 설정
 Vue.use(Vue2Filters);
+// Vue.use(VueResource);
+
+// Vue.http = axios;
+// Vue.prototype.$http = axios;
+
+
+global.store = store;
 
 // 글로벌 Vue 필터 정의
 Vue.filter('uppercase', v => v.toString().toUpperCase());
@@ -34,5 +45,6 @@ Vue.filter('number', v => {
 
 new Vue({
   el: '#app',
+  router, store,
   render: h => h(App)
 });

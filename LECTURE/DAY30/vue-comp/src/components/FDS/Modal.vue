@@ -1,16 +1,28 @@
 <template lang="pug">
-  .modal(v-if="visible" class="is-active")
-    .modal-background(@click="closeModal")
-    .modal-content.box
-      slot
-        p Default Model Content.
-    button.modal-close.is-large(
-      @click="closeModal"
-      :aria-label="close_message"
-    )
+  //- transition(
+  //-   :duration="300"
+  //-   enter-active-class="animated zoomInUp"
+  //-   leave-active-class="animated zoomOutDown"
+  //- )
+  transition(
+    @before-enter="onBeforeEnter"
+    @before-leave="onLeave"
+    :css="false"
+  )
+    .modal(v-if="visible" class="is-active")
+      .modal-background(@click="closeModal")
+      .modal-content.box
+        slot
+          p Default Model Content.
+      button.modal-close.is-large(
+        @click="closeModal"
+        :aria-label="close_message"
+      )
 </template>
 
 <script>
+let Velocity = global.Velocity;
+
 export default {
   props: {
     close_message: {
@@ -30,6 +42,15 @@ export default {
   methods: {
     closeModal(){
       this.visible = false;
+    },
+    onBeforeEnter(el){
+
+    },
+    onEnter(el, done){
+
+    },
+    onLeave(el, done){
+
     }
   }
 }
