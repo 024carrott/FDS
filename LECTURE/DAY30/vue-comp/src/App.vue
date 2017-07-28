@@ -13,12 +13,13 @@
       //- scoped slot을 사용할 경우
       //- template(slot="heading" scope="props")
       //-   h3 {{ props.message }}
-      p 오늘은 우리 수업의 마지막 날입니다. 행쇼~!
+      p 오늘은
+        a(href="") 우리 수업의 마지막 날입니다. 행쇼~!
 
     fds-message
       h3(slot="heading") 통화 변경
       p 어제 특가 이벤트! {{ 3000 | currency }}에 모십니다.
-      p 오늘 특가 이벤트! {{ 500000 | currency('$', 2) }}에 모십니다.
+      p 오늘 특가 이벤트! {{ 500000.3467 | currency('$', 2) }}에 모십니다.
 
     fds-modal(
       ref="my_modal"
@@ -32,17 +33,21 @@
       //- .content
         //- h3 VueJS 컴포넌트
         //- p 하이 모달
+
 </template>
 
 <script>
-  import Vue from 'vue';
+  import Vue        from 'vue';
   import FdsMessage from './components/FDS/Message';
-  import FdsModal from './components/FDS/Modal';
+  import FdsModal   from './components/FDS/Modal';
 
   export default {
     name: 'app',
     components: {
       FdsMessage, FdsModal
+    },
+    directives: {
+
     },
     filters: {
       currency: ( value, symbol='', decimal=0 ) => {
