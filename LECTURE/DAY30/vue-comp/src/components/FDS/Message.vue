@@ -1,14 +1,13 @@
 <template lang="pug">
   .message(v-if="is_visible")
     .message-header
-      //- props 예시
+      //------ props 예시
       //- h4 {{ heading }}
-
-      //- named slot 예시
+      //------ named slot 예시
       slot(name="heading")
         | Message Component
 
-      //- scoped slot 예시
+      //------ scoped slot 예시
       //- slot(name="heading" message="Notify Component")
       button.delete(
         @click="close"
@@ -40,9 +39,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-
-</style>
-
-
